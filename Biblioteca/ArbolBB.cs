@@ -151,7 +151,7 @@ namespace Biblioteca
         {
             PreOrden(Raiz, ref lista);
         }
-        public void removeNodo(T dato, Delegate delegado)
+        public virtual void removeNodo(T dato, Delegate delegado)
         {
             Nodo<T> nodo = null;
             findWhere(delegado, dato, Raiz, ref nodo);
@@ -182,9 +182,9 @@ namespace Biblioteca
                 removeNodoCaso3(nodo);
             }            
         }
-        
 
-        private void removeNodoCaso1(Nodo<T> nodo)
+
+        protected void removeNodoCaso1(Nodo<T> nodo)
         {
             if (nodo != Raiz)
             {
@@ -199,7 +199,7 @@ namespace Biblioteca
             }
             
         }
-        private void removeNodoCaso2(Nodo<T> nodo)
+        protected void removeNodoCaso2(Nodo<T> nodo)
         {
             if (nodo != Raiz)
             {
@@ -237,7 +237,7 @@ namespace Biblioteca
                 }                                                    
             }
         }
-        private void removeNodoCaso3(Nodo<T> nodo)
+        protected void removeNodoCaso3(Nodo<T> nodo)
         {
             Nodo<T> aux = nodo.Izquierda;
 
