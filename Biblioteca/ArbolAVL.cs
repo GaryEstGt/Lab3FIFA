@@ -55,10 +55,47 @@ namespace Biblioteca
                 }
 
                 nuevo.Padre = Padre;
-            }            
 
-            Nodo<T> temp = nuevo.Padre;
+                Balancear(nuevo);
+            }                        
+        }
 
+        public override void removeNodo(T dato, Delegate delegado)
+        {
+            Nodo<T> nodo = null;
+            findWhere(delegado, dato, Raiz, ref nodo);
+            /* Creamos variables para saber si tiene hijos izquierdo y derecho */
+            bool tieneNodoDerecha = nodo.getDerecha() != null ? true : false;
+            bool tieneNodoIzquierda = nodo.getIzquierda() != null ? true : false;
+
+            if (!tieneNodoDerecha && !tieneNodoIzquierda)
+            {
+                removeNodoCaso1(nodo);
+            }
+
+
+            if (tieneNodoDerecha && !tieneNodoIzquierda)
+            {
+                removeNodoCaso2(nodo);
+            }
+
+
+            if (!tieneNodoDerecha && tieneNodoIzquierda)
+            {
+                removeNodoCaso2(nodo);
+            }
+
+            /* Caso 3: Tiene ambos hijos */
+            if (tieneNodoDerecha && tieneNodoIzquierda)
+            {
+                removeNodoCaso3(nodo);
+            }
+
+            Balancear(nodo);
+        }
+
+        public void Balancear(Nodo<T> temp)
+        {            
             while (temp != null)
             {
                 ActualizarEquilibrios(Raiz);
@@ -69,7 +106,7 @@ namespace Biblioteca
                         rotarIzquierda(temp.Izquierda);
                     }
 
-                    rotarDerecha(temp);                                        
+                    rotarDerecha(temp);
                 }
                 else if (temp.equilibrio > 1)
                 {
