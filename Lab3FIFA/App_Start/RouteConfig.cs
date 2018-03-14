@@ -16,7 +16,7 @@ namespace Lab3FIFA
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Partido", action = "ElegirCampo", id = UrlParameter.Optional }
             );
         }
     }
