@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "ElegirCampo";
+}
+
+<h2>Elegir Campo</h2>
+
+@using (Html.BeginForm("ElegirCampo", "Partido", FormMethod.Post))
+{
+    <input type="submit" name="submitButton" value="No Partido" />
+    <input type="submit" name="submitButton" value="Fecha Partido" />
+    <input type="submit" name="submitButton" value="Grupo" />
+    <input type="submit" name="submitButton" value="Pais" />
+    <input type="submit" name="submitButton" value="Estadio" />
+}
