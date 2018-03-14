@@ -55,14 +55,13 @@ namespace Biblioteca
                 }
 
                 nuevo.Padre = Padre;
-            }
-
-            ActualizarEquilibrios(Raiz);
+            }            
 
             Nodo<T> temp = nuevo.Padre;
 
             while (temp != null)
             {
+                ActualizarEquilibrios(Raiz);
                 if (temp.equilibrio < -1)
                 {
                     if (temp.Izquierda.equilibrio == 1)
@@ -80,10 +79,8 @@ namespace Biblioteca
                     }
                     rotarIzquierda(temp);
                 }
-                else
-                {
-                    temp = temp.Padre;
-                }
+
+                temp = temp.Padre;
             }
         }
 
@@ -113,13 +110,53 @@ namespace Biblioteca
         }
 
         public void rotarDerecha(Nodo<T> nodo)
-        {
-            
+        {            
+            bool derecha = nodo.Padre.Derecha == nodo ? true : false;
+
+            if (derecha)
+            {
+                nodo.Padre.Derecha = nodo.Izquierda;                                
+            }
+            else
+            {
+                nodo.Padre.Izquierda = nodo.Izquierda;                
+            }            
+
+            nodo.Izquierda.Padre = nodo.Padre;
+            nodo.Padre = nodo.Izquierda;
+            Nodo<T> der = nodo.Izquierda.Derecha;
+            nodo.Izquierda.Derecha = nodo;
+
+            if (der != null)
+            {
+                der.Padre = nodo;
+                nodo.Izquierda = der;
+            }                                   
         }
 
         public void rotarIzquierda(Nodo<T> nodo)
         {
+            bool derecha = nodo.Padre.Derecha == nodo ? true : false;
 
+            if (derecha)
+            {
+                nodo.Padre.Derecha = nodo.Derecha;
+            }
+            else
+            {
+                nodo.Padre.Izquierda = nodo.Derecha;
+            }
+
+            nodo.Derecha.Padre = nodo.Padre;
+            nodo.Padre = nodo.Derecha;
+            Nodo<T> izquierda = nodo.Derecha.Izquierda;
+            nodo.Derecha.Izquierda = nodo;            
+
+            if (izquierda != null)
+            {
+                izquierda.Padre = nodo;
+                nodo.Derecha = izquierda;
+            }            
         }       
     }
 }
