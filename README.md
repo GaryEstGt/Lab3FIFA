@@ -1,8 +1,9 @@
 # Lab3FIFA
-Por favor crear carpeta "Log" dentro de la carpeta "Lab3FIFA"
 
 Formato JSON
+
 Partido
+
 [
   {
     "noPartido": 1,
@@ -12,6 +13,7 @@ Partido
     "Pais2": "Costa Rica",
     "Estadio": "Maracana"
   },
+  
   {
     "noPartido": 3,
     "fechaPartido": "12/11/18",
@@ -20,6 +22,7 @@ Partido
     "Pais2": "Costa Rica",
     "Estadio": "Camp Nou"
   },
+  
   {
     "noPartido": 2,
     "fechaPartido": "14/11/18",
