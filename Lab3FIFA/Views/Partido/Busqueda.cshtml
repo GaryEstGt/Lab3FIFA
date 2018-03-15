@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<Lab3FIFA.Models.Partido>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Busqueda";
 }
 
-<h2>Index</h2>
+<h2>Busqueda</h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "CrearPorArchivo")
-    @Html.ActionLink("Buscar", "Busqueda")
+    @using (Html.BeginForm("Busqueda", "Partido", FormMethod.Post))
+    {
+        @Html.TextBox("filter")
+
+        <input type="submit" name="tipobuscar" value="Buscar" />
+    }
 </p>
 <table class="table">
     <tr>
@@ -19,7 +24,7 @@
             @Html.DisplayNameFor(model => model.Grupo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.noPartido)
+            @Html.DisplayNameFor(model => model.Pais1)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Pais2)
@@ -39,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.Grupo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.noPartido)
+            @Html.DisplayFor(modelItem => item.Pais1)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Pais2)
@@ -48,9 +53,6 @@
             @Html.DisplayFor(modelItem => item.Estadio)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.noPartido }) |
-            @Html.ActionLink("Details", "Details", new { id=item.noPartido }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.noPartido })
         </td>
     </tr>
 }

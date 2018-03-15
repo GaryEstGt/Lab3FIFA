@@ -11,6 +11,7 @@ namespace Lab3FIFA.Controllers
 {
     public class PartidoController : Controller
     {
+ 
         public ActionResult ElegirCampo()
         {
             return View();
@@ -271,6 +272,76 @@ namespace Lab3FIFA.Controllers
                 //}
                 // }
                 return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult Busqueda()
+        {
+            return View(Data<Partido>.instance.Listabuscada);
+        }
+
+        // POST: Partido/Edit/5
+        [HttpPost]
+        public ActionResult Busqueda(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+                var Valor = collection["filter"];
+                switch (Data<Partido>.instance.tipoCampo)
+                {
+                    case 0:
+                        foreach (var item in Data<Partido>.instance.lista)
+                        {
+                            if (item.Pais1.Equals(Valor))
+                            {
+                                Data<Partido>.instance.Listabuscada.Add(item);
+                            }
+                        }
+                        break;
+                    case 1:
+                        foreach (var item in Data<Partido>.instance.lista)
+                        {
+                            if (item.Grupo.Equals(Valor))
+                            {
+                                Data<Partido>.instance.Listabuscada.Add(item);
+                            }
+                        }
+                        break;
+                    case 2:
+                        foreach (var item in Data<Partido>.instance.lista)
+                        {
+                            if (item.fechaPartido.Equals(Valor))
+                            {
+                                Data<Partido>.instance.Listabuscada.Add(item);
+                            }
+                        }
+                        break;
+                    case 3:
+                        foreach (var item in Data<Partido>.instance.lista)
+                        {
+                            if (item.Estadio.Equals(Valor))
+                            {
+                                Data<Partido>.instance.Listabuscada.Add(item);
+                            }
+                        }
+                        break;
+                    case 4:
+                        foreach (var item in Data<Partido>.instance.lista)
+                        {
+                            if (item.noPartido==Convert.ToInt16(Valor))
+                            {
+                                Data<Partido>.instance.Listabuscada.Add(item);
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                return RedirectToAction("Busqueda");
             }
             catch
             {

@@ -26,5 +26,6 @@ namespace Lab3FIFA
         public int tipoCampo;
         public int orden = 0;
         public List<T> lista = new List<T>();
+        public List<T> Listabuscada = new List<T>();
     }
 }
