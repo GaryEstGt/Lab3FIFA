@@ -21,7 +21,7 @@ namespace Lab3FIFA
             }
             set { Instance = value; }
         }
-
+                
         public Biblioteca.ArbolAVL<T> Arbol = new Biblioteca.ArbolAVL<T>();
         public int tipoCampo;
         public int orden = 0;

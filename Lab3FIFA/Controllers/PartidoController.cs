@@ -28,10 +28,8 @@ namespace Lab3FIFA.Controllers
                 {
                     case "No Partido":
                         Data<Partido>.instance.tipoCampo = 4;
-
                         break;
                     case "Fecha Partido":
-
                         Data<Partido>.instance.tipoCampo = 2;
                         break;
                     case "Grupo":
@@ -55,6 +53,7 @@ namespace Lab3FIFA.Controllers
         public ActionResult Index()
         {
             Data<Partido>.instance.lista.Clear();
+            Data<Partido>.instance.Listabuscada.Clear();
             Data<Partido>.instance.Arbol.MostrarInOrden(ref Data<Partido>.instance.lista);
             return View(Data<Partido>.instance.lista);
         }
@@ -112,12 +111,20 @@ namespace Lab3FIFA.Controllers
         // GET: Partido/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Partido partido = new Partido();
+            foreach (var x in Data<Partido>.instance.lista)
+            {
+                if (x.noPartido == id)
+                {
+                    partido = x;
+                }
+            }
+            return View(partido);
         }
 
         // POST: Partido/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, string fecha,string grupo,string pais1,string pais2,string estadio, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
@@ -148,10 +155,10 @@ namespace Lab3FIFA.Controllers
                     Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByFecha);
                 }
                 else if (Data<Partido>.instance.tipoCampo == 3)
-                {
+                {                    
                     Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByEstadio);
                 }
-                ArchivoLog.EscribirLinea("Detalles de " + par.Pais1 + ": " + Data<Partido>.instance.Tiempos.DetenerTiempo());
+                ArchivoLog.EscribirLinea("Eliminar " + par.Pais1 + ": " + Data<Partido>.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Index");
             }
             catch
@@ -269,11 +276,7 @@ namespace Lab3FIFA.Controllers
                         }
                     }
 
-                }
-                //  Pais p = new Pais {Id = 1, Name = "Brasil", Group = "A"};
-                //Data<Pais>.instance.Arbol.removeNodo(p, Pais.CompareByName);
-                //}
-                // }
+                }                
                 ArchivoLog.EscribirLinea("Crear nuevo partido: " + Data<Partido>.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Index");
             }
@@ -293,6 +296,7 @@ namespace Lab3FIFA.Controllers
         {
             try
             {
+                Data<Partido>.instance.Listabuscada.Clear();
                 // TODO: Add update logic here
                 Data<Partido>.instance.Tiempos.EmpezarTiempo();
                 var Valor = collection["filter"];
@@ -301,7 +305,7 @@ namespace Lab3FIFA.Controllers
                     case 0:
                         foreach (var item in Data<Partido>.instance.lista)
                         {
-                            if (item.Pais1.Equals(Valor))
+                            if ((item.Pais1.Equals(Valor))|| (item.Pais2.Equals(Valor)))
                             {
                                 Data<Partido>.instance.Listabuscada.Add(item);
                             }
