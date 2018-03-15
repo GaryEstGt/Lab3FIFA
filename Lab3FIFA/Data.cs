@@ -27,5 +27,7 @@ namespace Lab3FIFA
         public int orden = 0;
         public List<T> lista = new List<T>();
         public List<T> Listabuscada = new List<T>();
+        public MedicionTiempos Tiempos = new MedicionTiempos();
+        public string Log = string.Empty;
     }
 }

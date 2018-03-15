@@ -23,6 +23,7 @@ namespace Lab3FIFA.Controllers
         {
             try
             {
+                ArchivoLog.EmpezarLog();
                 switch (submitButton)
                 {
                     case "No Partido":
@@ -120,6 +121,7 @@ namespace Lab3FIFA.Controllers
         {
             try
             {
+                Data<Partido>.instance.Tiempos.EmpezarTiempo();
                 Partido par = new Partido();
                 foreach (var x in Data<Partido>.instance.lista)
                 {
@@ -149,7 +151,7 @@ namespace Lab3FIFA.Controllers
                 {
                     Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByEstadio);
                 }
-
+                ArchivoLog.EscribirLinea("Detalles de " + par.Pais1 + ": " + Data<Partido>.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Index");
             }
             catch
@@ -166,6 +168,7 @@ namespace Lab3FIFA.Controllers
         [HttpPost]
         public ActionResult CrearPorArchivo(HttpPostedFileBase postedFile)
         {
+            Data<Partido>.instance.Tiempos.EmpezarTiempo();
             try
             {
                 string todoeltexto = "";
@@ -271,6 +274,7 @@ namespace Lab3FIFA.Controllers
                 //Data<Pais>.instance.Arbol.removeNodo(p, Pais.CompareByName);
                 //}
                 // }
+                ArchivoLog.EscribirLinea("Crear nuevo partido: " + Data<Partido>.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Index");
             }
             catch
@@ -290,6 +294,7 @@ namespace Lab3FIFA.Controllers
             try
             {
                 // TODO: Add update logic here
+                Data<Partido>.instance.Tiempos.EmpezarTiempo();
                 var Valor = collection["filter"];
                 switch (Data<Partido>.instance.tipoCampo)
                 {
@@ -341,6 +346,7 @@ namespace Lab3FIFA.Controllers
                     default:
                         break;
                 }
+                ArchivoLog.EscribirLinea("Busqueda de Partido: " + Data<Partido>.instance.Tiempos.DetenerTiempo());
                 return RedirectToAction("Busqueda");
             }
             catch
