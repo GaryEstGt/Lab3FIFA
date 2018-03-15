@@ -9,17 +9,17 @@ namespace Lab3FIFA.Models
     public class Partido
     {
         [Key]
-        int noPartido { get; set; }
+        public int noPartido { get; set; }
         [Display(Name ="Fecha Partido")]
-        DateTime fechaPartido { get; set; }
+        public string fechaPartido { get; set; }
         [Display(Name = "Grupo")]
-        string Grupo { get; set; }
+        public string Grupo { get; set; }
         [Display(Name = "Pais 1")]
-        string Pais1 { get; set; }
+        public string Pais1 { get; set; }
         [Display(Name = "Pais 2")]
-        string Pais2 { get; set; }
+        public string Pais2 { get; set; }
         [Display(Name = "Estadio")]
-        string Estadio { get; set; }
+        public string Estadio { get; set; }
 
         public static Comparison<Partido> CompareByFecha = delegate (Partido p1, Partido p2)
         {
@@ -37,6 +37,10 @@ namespace Lab3FIFA.Models
         public static Comparison<Partido> CompareByEstadio = delegate (Partido p1, Partido p2)
         {
             return p1.Estadio.CompareTo(p2.Estadio);
+        };
+        public static Comparison<Partido> CompareByNoPartido = delegate (Partido p1, Partido p2)
+        {
+            return p1.noPartido.CompareTo(p2.noPartido);
         };
     }
 }

@@ -11,15 +11,45 @@
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaPartido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grupo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pais1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pais2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estadio)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => item.fechaPartido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grupo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pais1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pais2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estadio)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.noPartido }) |
+            @Html.ActionLink("Details", "Details", new { id=item.noPartido }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.noPartido })
         </td>
     </tr>
 }

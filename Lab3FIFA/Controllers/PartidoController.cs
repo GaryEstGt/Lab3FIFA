@@ -25,21 +25,21 @@ namespace Lab3FIFA.Controllers
                 switch (submitButton)
                 {
                     case "No Partido":
-                        
-                        
+                        Data<Partido>.instance.tipoCampo = 4;
+
                         break;
                     case "Fecha Partido":
-                       
-                        
+
+                        Data<Partido>.instance.tipoCampo = 2;
                         break;
                     case "Grupo":
-                       
+                        Data<Partido>.instance.tipoCampo = 1;
                         break;
                     case "Pais":
-
+                        Data<Partido>.instance.tipoCampo = 0;
                         break;
                     case "Estadio":
-
+                        Data<Partido>.instance.tipoCampo = 3;
                         break;
                 }
                 return RedirectToAction("Index");
@@ -52,8 +52,9 @@ namespace Lab3FIFA.Controllers
         // GET: Partido
         public ActionResult Index()
         {
-            List<Partido> Temp = new List<Partido>();
-            return View(Temp);
+            Data<Partido>.instance.lista.Clear();
+            Data<Partido>.instance.Arbol.MostrarInOrden(ref Data<Partido>.instance.lista);
+            return View(Data<Partido>.instance.lista);
         }
 
         // GET: Partido/Details/5
@@ -114,11 +115,39 @@ namespace Lab3FIFA.Controllers
 
         // POST: Partido/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, string fecha,string grupo,string pais1,string pais2,string estadio, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                Partido par = new Partido
+                {
+                    noPartido= id,
+                    fechaPartido= fecha,
+                    Grupo= grupo,
+                    Pais1= pais1,
+                    Pais2= pais2,
+                    Estadio= estadio
+                };
+                if (Data<Partido>.instance.tipoCampo == 4)
+                {
+                    Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByNoPartido);
+                }
+                else if (Data<Partido>.instance.tipoCampo == 0)
+                {
+                    Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByPais1);
+                }
+                else if(Data<Partido>.instance.tipoCampo == 1)
+                {
+                    Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByGroup);
+                }
+                else if (Data<Partido>.instance.tipoCampo == 2)
+                {
+                    Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByFecha);
+                }
+                else if (Data<Partido>.instance.tipoCampo == 3)
+                {
+                    Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByEstadio);
+                }
 
                 return RedirectToAction("Index");
             }
@@ -159,7 +188,7 @@ namespace Lab3FIFA.Controllers
 
                     /* if (!string.IsNullOrEmpty(row))
                      {*/
-                    /**if (Data<Partido>.instance.tipoCampo == 0)
+                    if (Data<Partido>.instance.tipoCampo == 0)
                     {
                         Partido[] partido = JsonConvert.DeserializeObject<Partido[]>(csvData);
                         if (partido.Length == 1)
@@ -220,11 +249,25 @@ namespace Lab3FIFA.Controllers
                             }
                         }
                     }
+                    else
+                    {
+                        Partido[] partido = JsonConvert.DeserializeObject<Partido[]>(csvData);
+                        if (partido.Length == 1)
+                        {
+                            Data<Partido>.instance.Arbol.Insertar(partido[0], Partido.CompareByNoPartido);
+                        }
+                        else
+                        {
+                            for (int i = 0; i <= partido.Length - 1; i++)
+                            {
+                                Data<Partido>.instance.Arbol.Insertar(partido[i], Partido.CompareByNoPartido);
+                            }
+                        }
+                    }
 
-                }*/
+                }
                 //  Pais p = new Pais {Id = 1, Name = "Brasil", Group = "A"};
                 //Data<Pais>.instance.Arbol.removeNodo(p, Pais.CompareByName);
-                }
                 //}
                 // }
                 return RedirectToAction("Index");
