@@ -119,15 +119,15 @@ namespace Lab3FIFA.Controllers
         {
             try
             {
-                Partido par = new Partido
+                Partido par = new Partido();
+                foreach (var x in Data<Partido>.instance.lista)
                 {
-                    noPartido= id,
-                    fechaPartido= fecha,
-                    Grupo= grupo,
-                    Pais1= pais1,
-                    Pais2= pais2,
-                    Estadio= estadio
-                };
+                    if (x.noPartido == id)
+                    {
+                        par = x;
+                    }
+                }
+                
                 if (Data<Partido>.instance.tipoCampo == 4)
                 {
                     Data<Partido>.instance.Arbol.removeNodo(par, Partido.CompareByNoPartido);
