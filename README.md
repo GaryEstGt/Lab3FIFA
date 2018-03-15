@@ -1,5 +1,5 @@
 # Lab3FIFA
-Por favor crear carpeta "Log"
+Por favor crear carpeta "Log" dentro de la carpeta "Lab3FIFA"
 
 Formato JSON
 Partido
